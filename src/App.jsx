@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import FilmGrain from './components/FilmGrain'
 import RedCarpetEdges from './components/RedCarpetEdges'
+import AmbientBackground from './components/AmbientBackground'
 import CurtainReveal from './components/CurtainReveal'
 import Hero from './components/Hero'
 import Invitations from './components/Invitations'
@@ -20,11 +21,16 @@ function App() {
 
   return (
     <div style={{
-      background: 'var(--bg)',
+      background: 'transparent',   /* body carries var(--bg); plasma blobs show through */
       minHeight: '100vh',
       color: 'var(--text-primary)',
       overflowX: 'hidden',
+      position: 'relative',
+      zIndex: 1,
     }}>
+      {/* z-index 0: plasma blobs */}
+      <AmbientBackground />
+      {/* z-index 99-100: fixed overlays */}
       <FilmGrain />
       <RedCarpetEdges />
       <CurtainReveal onComplete={() => setCurtainDone(true)} />

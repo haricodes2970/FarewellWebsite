@@ -3,22 +3,22 @@
 
 @import "tailwindcss";
 
-/* CSS Variables */
+/* ─── CSS Variables ──────────────────────────────── */
 :root {
-  --bg:            #060810;
-  --bg-card:       rgba(12, 16, 28, 0.85);
-  --text-primary:  #e8e2d4;
-  --text-dim:      rgba(232, 226, 212, 0.5);
-  --text-muted:    rgba(232, 226, 212, 0.25);
+  --bg:            #08090f;
+  --bg-card:       rgba(14, 18, 32, 0.82);
+  --text-primary:  #ede6d8;
+  --text-dim:      rgba(237, 230, 216, 0.5);
+  --text-muted:    rgba(237, 230, 216, 0.28);
   --gold:          #d4a853;
   --gold-bright:   #f0c86e;
   --gold-dim:      #a07930;
   --warm:          #c2724a;
-  --warm-glow:     rgba(194, 114, 74, 0.15);
+  --warm-glow:     rgba(194, 114, 74, 0.18);
   --cool:          #5b8fd4;
-  --cool-glow:     rgba(91, 143, 212, 0.15);
-  --red-carpet:    #3d0c0c;
-  --border:        rgba(232, 226, 212, 0.08);
+  --cool-glow:     rgba(91, 143, 212, 0.18);
+  --red-carpet:    #4a0c0c;
+  --border:        rgba(237, 230, 216, 0.09);
 }
 
 *, *::before, *::after {
@@ -27,9 +27,7 @@
   padding: 0;
 }
 
-html {
-  scroll-behavior: smooth;
-}
+html { scroll-behavior: smooth; }
 
 body {
   background-color: var(--bg);
@@ -44,7 +42,33 @@ body {
   min-height: 100vh;
 }
 
-/* Film grain animation */
+/* ─── Plasma / ambient blob keyframes ───────────── */
+@keyframes blobA {
+  0%, 100% { transform: translate(0,    0)    scale(1);   opacity: 0.22; }
+  30%       { transform: translate(120px,-90px)  scale(1.25); opacity: 0.3;  }
+  65%       { transform: translate(-70px, 110px) scale(0.88); opacity: 0.18; }
+}
+@keyframes blobB {
+  0%, 100% { transform: translate(0, 0)      scale(1);   opacity: 0.2;  }
+  25%       { transform: translate(-110px,80px) scale(1.15); opacity: 0.28; }
+  70%       { transform: translate(90px,-100px) scale(0.9);  opacity: 0.16; }
+}
+@keyframes blobC {
+  0%, 100% { transform: translate(0, 0)       scale(1.05); opacity: 0.18; }
+  40%       { transform: translate(70px, 110px)  scale(1.3);  opacity: 0.25; }
+  80%       { transform: translate(-90px,-70px)  scale(0.8);  opacity: 0.14; }
+}
+@keyframes blobD {
+  0%, 100% { transform: translate(0, 0)        scale(1);   opacity: 0.15; }
+  35%       { transform: translate(-80px,-100px)  scale(0.9);  opacity: 0.2;  }
+  70%       { transform: translate(100px, 60px)  scale(1.2);  opacity: 0.12; }
+}
+@keyframes blobE {
+  0%, 100% { transform: translate(0, 0)    scale(1);    opacity: 0.18; }
+  50%       { transform: translate(-130px,90px) scale(1.18); opacity: 0.24; }
+}
+
+/* ─── Film grain ─────────────────────────────────── */
 @keyframes grainDrift {
   0%   { background-position: 0% 0%; }
   25%  { background-position: 40% 20%; }
@@ -52,43 +76,39 @@ body {
   75%  { background-position: 20% 60%; }
   100% { background-position: 0% 0%; }
 }
+.film-grain { animation: grainDrift 8s ease-in-out infinite; }
 
-.film-grain {
-  animation: grainDrift 8s ease-in-out infinite;
-}
-
-/* Intermission flicker */
+/* ─── Intermission flicker ───────────────────────── */
 @keyframes flicker {
-  0%, 100% { opacity: 1; }
+  0%, 100% { opacity: 1;   }
   50%       { opacity: 0.7; }
 }
+.flicker { animation: flicker 3s ease-in-out infinite; }
 
-.flicker {
-  animation: flicker 3s ease-in-out infinite;
-}
-
-/* Gold glow pulse */
+/* ─── Gold glow pulse ────────────────────────────── */
 @keyframes goldPulse {
-  0%, 100% { box-shadow: 0 0 6px 2px rgba(212, 168, 83, 0.5); }
-  50%       { box-shadow: 0 0 12px 4px rgba(212, 168, 83, 0.9); }
+  0%, 100% { box-shadow: 0 0 6px  2px rgba(212,168,83,0.5); }
+  50%       { box-shadow: 0 0 14px 5px rgba(212,168,83,0.9); }
+}
+.gold-pulse { animation: goldPulse 2s ease-in-out infinite; }
+
+/* ─── Roadmap: mobile collapse ───────────────────── */
+@media (max-width: 900px) {
+  .roadmap-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 48px !important;
+  }
+  .roadmap-svg  { display: none !important; }
+  .roadmap-card { grid-row: auto !important; grid-column: auto !important; }
 }
 
-.gold-pulse {
-  animation: goldPulse 2s ease-in-out infinite;
-}
+/* ─── Ticket / card cold-reveal clip-path reset ──── */
+.card-hidden { clip-path: inset(0 0 100% 0 round 10px); opacity: 0; }
+.card-shown  { clip-path: inset(0 0   0% 0 round 10px); opacity: 1; }
 
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  height: 4px;
-  width: 6px;
-}
-::-webkit-scrollbar-track {
-  background: var(--bg);
-}
-::-webkit-scrollbar-thumb {
-  background: var(--gold-dim);
-  border-radius: 2px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: var(--gold);
-}
+/* ─── Custom scrollbar ───────────────────────────── */
+::-webkit-scrollbar        { height: 4px; width: 6px; }
+::-webkit-scrollbar-track  { background: var(--bg); }
+::-webkit-scrollbar-thumb  { background: var(--gold-dim); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: var(--gold); }
