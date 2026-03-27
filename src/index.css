@@ -1,0 +1,94 @@
+/* Google Fonts — must be first */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Outfit:wght@300;400;500;600&family=Caveat:wght@400;500&display=swap');
+
+@import "tailwindcss";
+
+/* CSS Variables */
+:root {
+  --bg:            #060810;
+  --bg-card:       rgba(12, 16, 28, 0.85);
+  --text-primary:  #e8e2d4;
+  --text-dim:      rgba(232, 226, 212, 0.5);
+  --text-muted:    rgba(232, 226, 212, 0.25);
+  --gold:          #d4a853;
+  --gold-bright:   #f0c86e;
+  --gold-dim:      #a07930;
+  --warm:          #c2724a;
+  --warm-glow:     rgba(194, 114, 74, 0.15);
+  --cool:          #5b8fd4;
+  --cool-glow:     rgba(91, 143, 212, 0.15);
+  --red-carpet:    #3d0c0c;
+  --border:        rgba(232, 226, 212, 0.08);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text-primary);
+  font-family: 'Outfit', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* Film grain animation */
+@keyframes grainDrift {
+  0%   { background-position: 0% 0%; }
+  25%  { background-position: 40% 20%; }
+  50%  { background-position: 60% 80%; }
+  75%  { background-position: 20% 60%; }
+  100% { background-position: 0% 0%; }
+}
+
+.film-grain {
+  animation: grainDrift 8s ease-in-out infinite;
+}
+
+/* Intermission flicker */
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.7; }
+}
+
+.flicker {
+  animation: flicker 3s ease-in-out infinite;
+}
+
+/* Gold glow pulse */
+@keyframes goldPulse {
+  0%, 100% { box-shadow: 0 0 6px 2px rgba(212, 168, 83, 0.5); }
+  50%       { box-shadow: 0 0 12px 4px rgba(212, 168, 83, 0.9); }
+}
+
+.gold-pulse {
+  animation: goldPulse 2s ease-in-out infinite;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  height: 4px;
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--gold-dim);
+  border-radius: 2px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gold);
+}
